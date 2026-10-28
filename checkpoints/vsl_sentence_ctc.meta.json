@@ -1,0 +1,24 @@
+{
+  "checkpoint_path": "C:\\Users\\Asus\\.gemini\\antigravity\\scratch\\vsl_continuous_recognition_model\\checkpoints\\vsl_sentence_ctc.pth",
+  "feature_dim": 212,
+  "feature_version": "v1-canonical-left106-right106",
+  "blank_id": 0,
+  "blank_token": "<blank>",
+  "num_classes": 4,
+  "vocabulary": [
+    "<blank>",
+    "BỆNH_VIỆN",
+    "TÔI",
+    "ĐAU"
+  ],
+  "grammar_templates": [
+    "SUBJ + PAIN",
+    "SUBJ + PAIN + PLACE",
+    "SUBJ + PLACE",
+    "PLACE + SUBJ + PAIN"
+  ],
+  "epoch": 26,
+  "best_val_loss": 0.009458695258945226,
+  "best_val_wer": 0.0,
+  "seed": 42
+}

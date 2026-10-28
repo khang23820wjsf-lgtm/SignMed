@@ -1,0 +1,180 @@
+{
+  "architecture": {
+    "architecture": "1D-CNN + 2x BiLSTM + Linear(num_classes)",
+    "input_dim": 212,
+    "conv_channels": 64,
+    "hidden_dim": 128,
+    "lstm_layers": 2,
+    "fc_hidden_dim": 64,
+    "num_classes": 9,
+    "feature_version": "v1-canonical-left106-right106",
+    "sequence_format": "[T,212]"
+  },
+  "feature_dim": 212,
+  "feature_version": "v1-canonical-left106-right106",
+  "vocabulary": [
+    "<blank>",
+    "ANH",
+    "AN_ỦI",
+    "BAN_NGÀY",
+    "BAN_ĐÊM",
+    "BA_LÔ",
+    "BIA",
+    "BIẾT",
+    "BIẾU_TẶNG"
+  ],
+  "gloss_to_id": {
+    "<blank>": 0,
+    "ANH": 1,
+    "AN_ỦI": 2,
+    "BAN_NGÀY": 3,
+    "BAN_ĐÊM": 4,
+    "BA_LÔ": 5,
+    "BIA": 6,
+    "BIẾT": 7,
+    "BIẾU_TẶNG": 8
+  },
+  "id_to_gloss": {
+    "0": "<blank>",
+    "1": "ANH",
+    "2": "AN_ỦI",
+    "3": "BAN_NGÀY",
+    "4": "BAN_ĐÊM",
+    "5": "BA_LÔ",
+    "6": "BIA",
+    "7": "BIẾT",
+    "8": "BIẾU_TẶNG"
+  },
+  "num_classes": 9,
+  "blank_id": 0,
+  "blank_token": "<blank>",
+  "training_config": {
+    "epochs": 25,
+    "batch_size": 8,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "grad_clip_norm": 2.0,
+    "optimizer": "AdamW",
+    "scheduler": "CosineAnnealingLR",
+    "seed": 42,
+    "early_stopping_patience": 15,
+    "device": "cpu"
+  },
+  "epoch": 6,
+  "best_val_loss": 2.70141339302063,
+  "best_val_wer": 1.0,
+  "val_metrics": {
+    "loss": 2.70141339302063,
+    "corpus_wer": 1.0,
+    "mean_sample_wer": 1.0,
+    "mean_sample_cer": 1.0,
+    "exact_match_rate": 0.0,
+    "total_samples": 13,
+    "total_frames": 810,
+    "total_ref_tokens": 31,
+    "substitutions": 0,
+    "deletions": 31,
+    "insertions": 0,
+    "hits": 0,
+    "total_edits": 31,
+    "decode_method": "greedy",
+    "latency_ms_per_sequence": 7.162492308102978,
+    "latency_ms_per_frame": 0.11495358025350458,
+    "per_speaker_metrics": {
+      "spk_npy_val": {
+        "samples": 13,
+        "edits": 31,
+        "ref_tokens": 31,
+        "exact_matches": 0,
+        "substitutions": 0,
+        "deletions": 31,
+        "insertions": 0,
+        "hits": 0,
+        "wer": 1.0,
+        "exact_match_rate": 0.0
+      }
+    },
+    "length_bucket_metrics": {
+      "short_lt_40f": {
+        "samples": 0,
+        "edits": 0,
+        "ref_tokens": 0,
+        "exact_matches": 0,
+        "wer": 0.0,
+        "exact_match_rate": 0.0
+      },
+      "medium_40_to_80f": {
+        "samples": 10,
+        "edits": 22,
+        "ref_tokens": 22,
+        "exact_matches": 0,
+        "wer": 1.0,
+        "exact_match_rate": 0.0
+      },
+      "long_gt_80f": {
+        "samples": 3,
+        "edits": 9,
+        "ref_tokens": 9,
+        "exact_matches": 0,
+        "wer": 1.0,
+        "exact_match_rate": 0.0
+      }
+    },
+    "gloss_count_bucket_metrics": {
+      "single_gloss_1": {
+        "samples": 0,
+        "edits": 0,
+        "ref_tokens": 0,
+        "exact_matches": 0,
+        "wer": 0.0,
+        "exact_match_rate": 0.0
+      },
+      "short_phrase_2_3": {
+        "samples": 13,
+        "edits": 31,
+        "ref_tokens": 31,
+        "exact_matches": 0,
+        "wer": 1.0,
+        "exact_match_rate": 0.0
+      },
+      "long_sentence_4_plus": {
+        "samples": 0,
+        "edits": 0,
+        "ref_tokens": 0,
+        "exact_matches": 0,
+        "wer": 0.0,
+        "exact_match_rate": 0.0
+      }
+    }
+  },
+  "seed": 42,
+  "dataset_diagnostics": {
+    "total_samples": 66,
+    "valid_samples": 66,
+    "rejected_samples": 0,
+    "missing_sentence_id": 0,
+    "missing_speaker_id": 0,
+    "missing_session_id": 0,
+    "missing_recording_id": 0,
+    "empty_gloss_or_frames": 0,
+    "unknown_gloss": 0,
+    "invalid_canonical_212": 0,
+    "ctc_input_too_short": 0,
+    "rejection_logs": []
+  },
+  "split_summary": {
+    "train_samples": 40,
+    "val_samples": 13,
+    "test_samples": 13,
+    "train_speakers": [
+      "spk_npy_train_1",
+      "spk_npy_train_2"
+    ],
+    "val_speakers": [
+      "spk_npy_val"
+    ],
+    "test_speakers": [
+      "spk_npy_test"
+    ]
+  }
+}
