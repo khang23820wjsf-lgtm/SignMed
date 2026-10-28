@@ -42,7 +42,48 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from decoder import BLANK_ID, BLANK_TOKEN, Vocabulary, normalize_single_gloss
-from examples.demo_inference import build_pipeline_verification_dataset
+try:
+    from examples.demo_inference import build_pipeline_verification_dataset
+except (ImportError, ModuleNotFoundError):
+    def build_pipeline_verification_dataset():
+        base_lm = [{"x": 0.5, "y": 0.5, "z": 0.0} for _ in range(21)]
+        speakers = ["spk_demo_01", "spk_demo_02", "spk_demo_03", "spk_demo_04"]
+        sentence_templates = [
+            ["XIN_CHÀO", "BẠN"],
+            ["CẢM_ƠN", "BÁC_SĨ"],
+            ["TÔI", "CẦN", "GIÚP_ĐỠ"],
+            ["TÔI", "UỐNG", "THUỐC"],
+        ]
+        ctc_samples = []
+        single_sign_samples = []
+        for spk_idx, spk_id in enumerate(speakers):
+            for sent_idx, glosses in enumerate(sentence_templates):
+                raw_frames = []
+                for t in range(30):
+                    raw_frames.append({
+                        "frameIndex": t,
+                        "timestampMs": t * 33.3,
+                        "leftHandLandmarks": base_lm,
+                        "rightHandLandmarks": base_lm,
+                        "poseLandmarks": None,
+                        "faceLandmarks": None,
+                    })
+                ctc_samples.append({
+                    "sentenceId": f"sent_{spk_id}_{sent_idx}",
+                    "speakerId": spk_id,
+                    "sessionId": f"sess_{spk_id}",
+                    "recordingId": f"rec_{spk_id}_{sent_idx}",
+                    "glossSequence": glosses,
+                    "frames": raw_frames,
+                })
+                single_sign_samples.append({
+                    "sampleId": f"sign_{spk_id}_{sent_idx}",
+                    "speakerId": spk_id,
+                    "sessionId": f"sess_{spk_id}",
+                    "gloss": glosses[0],
+                    "frames": raw_frames,
+                })
+        return ctc_samples, single_sign_samples
 from feature_extractor import (
     CTC_FEATURE_DIM,
     FEATURE_VERSION,
@@ -4347,8 +4388,8 @@ class DualVSLRequestHandler(BaseHTTPRequestHandler):
 
 def main() -> None:
     port = int(os.environ.get("PORT", "8000"))
-    server = ThreadingHTTPServer(("127.0.0.1", port), DualVSLRequestHandler)
-    print(f"VSL Studio (.npy keypoints_splited enabled) running at http://localhost:{port}")
+    server = ThreadingHTTPServer(("0.0.0.0", port), DualVSLRequestHandler)
+    print(f"VSL Studio (.npy keypoints_splited enabled) running at http://0.0.0.0:{port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
